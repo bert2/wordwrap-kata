@@ -4,26 +4,30 @@ namespace wordwrap_kata {
     using System.Linq;
 
     public static class TextHelper {
-        public static string Wrap(this string text, int maxLength) => text?
+        public static string Wrap(this string text, int columns) => text?
             .GetWords()
-            .BreakLongWords(maxLength)
-            .CombineLines(maxLength)
-            .PadEndings(maxLength)
+            .BreakLongWords(columns)
+            .CombineLines(columns)
+            .PadEndings(columns)
             .Join(Environment.NewLine);
 
         private static IEnumerable<string> GetWords(this string text) => text.Split(' ');
 
         private static IEnumerable<string> BreakLongWords(this IEnumerable<string> words, int maxLength) => words
-            .SelectMany(w => w.Length > maxLength
-                ? new[] { w.Substring(0, maxLength), w.Substring(maxLength) }
-                : new[] { w });
+            .SelectMany(w => BreakWordIfTooLong(w, maxLength));
 
-        private static IEnumerable<string> CombineLines(this IEnumerable<string> words, int length) {
+        private static IEnumerable<string> BreakWordIfTooLong(string word, int maxLength) {
+            return word.Length > maxLength
+                ? new[] { word.Substring(0, maxLength) }.Concat(BreakWordIfTooLong(word.Substring(maxLength), maxLength))
+                : new[] { word };
+        }
+
+        private static IEnumerable<string> CombineLines(this IEnumerable<string> words, int columns) {
             var wordsQ = new Queue<string>(words);
             var line = "";
 
             while (wordsQ.Any()) {
-                if (line.Append(wordsQ.Peek()).Length <= length) {
+                if (line.Append(wordsQ.Peek()).Length <= columns) {
                     line = line.Append(wordsQ.Dequeue());
                 }
                 else {

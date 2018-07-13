@@ -9,26 +9,26 @@
     public class WordWrapTests {
         [Fact]
         public void LinesEqualWordsWhenAllMatchMaxLength() {
-            var result = "abc def".Wrap(3);
-            LinesOf(result).Should().BeEquivalentTo("abc", "def");
+            var result = "abc def ghi".Wrap(3);
+            LinesOf(result).Should().BeEquivalentTo("abc", "def", "ghi");
         }
 
         [Fact]
         public void LinesAreRightPaddedWordsWhenAllAreShorterThanMaxLength() {
-            var result = "abc def".Wrap(4);
-            LinesOf(result).Should().BeEquivalentTo("abc ", "def ");
+            var result = "abc de fg".Wrap(4);
+            LinesOf(result).Should().BeEquivalentTo("abc ", "de  ", "fg  ");
         }
 
         [Fact]
         public void KeepsWordsInOneLineWhenTheirCombinedLengthIsShorterThanMaxLength() {
-            var result = "abc def".Wrap(7);
-            LinesOf(result).Should().BeEquivalentTo("abc def");
+            var result = "abc def ghi".Wrap(11);
+            LinesOf(result).Should().BeEquivalentTo("abc def ghi");
         }
 
         [Fact]
-        public void WrapsWordsLongerThanMaxLength() {
-            var result = "abcdef".Wrap(3);
-            LinesOf(result).Should().BeEquivalentTo("abc", "def");
+        public void BreaksWordsLongerThanMaxLength() {
+            var result = "abcdefghi".Wrap(3);
+            LinesOf(result).Should().BeEquivalentTo("abc", "def", "ghi");
         }
 
         [Fact]
