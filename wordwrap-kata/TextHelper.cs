@@ -7,7 +7,7 @@ namespace wordwrap_kata {
         public static string Wrap(this string text, int columns) => text?
             .GetWords()
             .BreakLongWords(columns)
-            .CombineLines(columns)
+            .CombineIntoLines(columns)
             .PadEndings(columns)
             .Join(Environment.NewLine);
 
@@ -22,7 +22,7 @@ namespace wordwrap_kata {
                 : new[] { word };
         }
 
-        private static IEnumerable<string> CombineLines(this IEnumerable<string> words, int columns) {
+        private static IEnumerable<string> CombineIntoLines(this IEnumerable<string> words, int columns) {
             var wordsQ = new Queue<string>(words);
             var line = "";
 
