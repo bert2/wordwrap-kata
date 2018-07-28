@@ -17,8 +17,11 @@ namespace wordwrap_kata {
             .SelectMany(w => BreakWordIfTooLong(w, maxLength));
 
         private static IEnumerable<string> BreakWordIfTooLong(string word, int maxLength) => word.Length <= maxLength
-            ? new[] { word }
-            : new[] { word.Substring(0, maxLength) }.Concat(BreakWordIfTooLong(word.Substring(maxLength), maxLength));
+            ? word.AsSingleton()
+            : word.Substring(0, maxLength).AsSingleton()
+                .Concat(BreakWordIfTooLong(word.Substring(maxLength), maxLength));
+
+        private static IEnumerable<T> AsSingleton<T>(this T item) => Enumerable.Repeat(item, 1);
 
         private static IEnumerable<string> CombineWordsIntoLines(this IEnumerable<string> words, int columns) => words
             .Aggregate(
