@@ -1,49 +1,48 @@
 ﻿namespace wordwrap_kata {
     using System;
-    using System.Collections.Generic;
-
     using FluentAssertions;
-
+    using FluentAssertions.Collections;
+    using FluentAssertions.Primitives;
     using Xunit;
 
     public class WordWrapTests {
-        [Fact]
-        public void LinesEqualWordsWhenAllMatchMaxLength() {
-            var result = "abc def ghi".Wrap(3);
-            LinesOf(result).Should().BeEquivalentTo("abc", "def", "ghi");
-        }
 
-        [Fact]
-        public void LinesAreRightPaddedWordsWhenAllAreShorterThanMaxLength() {
-            var result = "abc de fg".Wrap(4);
-            LinesOf(result).Should().BeEquivalentTo("abc ", "de  ", "fg  ");
-        }
+        [Fact] public void LinesEqualWordsWhenAllMatchMaxLength() =>
+            "abc def ghi"
+            .Wrap(3)
+            .Should().HaveLines("abc", "def", "ghi");
 
-        [Fact]
-        public void KeepsWordsInOneLineWhenTheirCombinedLengthIsShorterThanMaxLength() {
-            var result = "abc def ghi".Wrap(11);
-            LinesOf(result).Should().BeEquivalentTo("abc def ghi");
-        }
+        [Fact] public void LinesAreRightPaddedWordsWhenAllAreShorterThanMaxLength() =>
+            "abc de fg"
+            .Wrap(4)
+            .Should().HaveLines("abc ", "de  ", "fg  ");
 
-        [Fact]
-        public void BreaksWordsLongerThanMaxLength() {
-            var result = "abcdefghi".Wrap(3);
-            LinesOf(result).Should().BeEquivalentTo("abc", "def", "ghi");
-        }
+        [Fact] public void KeepsWordsInOneLineWhenTheirCombinedLengthIsShorterThanMaxLength() =>
+            "abc def ghi"
+            .Wrap(11)
+            .Should().HaveLines("abc def ghi");
 
-        [Fact]
-        public void ReturnsMaxLengthSpacesWhenInputIsEmpty() {
-            var result = "".Wrap(3);
-            result.Should().Be("   ");
-        }
+        [Fact] public void BreaksWordsLongerThanMaxLength() =>
+            "abcdefghi"
+            .Wrap(3)
+            .Should().HaveLines("abc", "def", "ghi");
 
-        [Fact]
-        public void ReturnsNullWhenInputIsNull() {
-            var result = ((string)null).Wrap(3);
-            result.Should().Be(null);
-        }
+        [Fact] public void ReturnsMaxLengthSpacesWhenInputIsEmpty() =>
+            ""
+            .Wrap(3)
+            .Should().Be("   ");
 
-        private static IEnumerable<string> LinesOf(string s) => s.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+        [Fact] public void ReturnsNullWhenInputIsNull() =>
+            ((string)null)
+            .Wrap(3)
+            .Should().Be(null);
+    }
+
+    public static class Ext {
+        public static AndConstraint<StringCollectionAssertions> HaveLines(this StringAssertions a, params string[] lines) => a
+            .Subject
+            .Split(Environment.NewLine)
+            .Should().BeEquivalentTo(lines);
     }
 }
 

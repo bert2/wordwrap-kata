@@ -9,19 +9,17 @@ namespace wordwrap_kata {
             .BreakLongWords(columns)
             .CombineWordsIntoLines(columns)
             .PadLineEndings(columns)
-            .JoinLines(Environment.NewLine);
+            .Join(Environment.NewLine);
 
         private static IEnumerable<string> GetWords(this string text) => text.Split(' ');
 
         private static IEnumerable<string> BreakLongWords(this IEnumerable<string> words, int maxLength) => words
-            .SelectMany(w => BreakWordIfTooLong(w, maxLength));
+            .SelectMany(w => BreakWord(w, maxLength));
 
-        private static IEnumerable<string> BreakWordIfTooLong(string word, int maxLength) => word.Length <= maxLength
+        private static IEnumerable<string> BreakWord(string word, int maxLength) => word.Length <= maxLength
             ? word.AsSingleton()
             : word.Substring(0, maxLength).AsSingleton()
-                .Concat(BreakWordIfTooLong(word.Substring(maxLength), maxLength));
-
-        private static IEnumerable<T> AsSingleton<T>(this T item) => Enumerable.Repeat(item, 1);
+                .Concat(BreakWord(word.Substring(maxLength), maxLength));
 
         private static IEnumerable<string> CombineWordsIntoLines(this IEnumerable<string> words, int columns) => words
             .Aggregate(
@@ -41,6 +39,8 @@ namespace wordwrap_kata {
         private static IEnumerable<string> PadLineEndings(this IEnumerable<string> lines, int length) => lines
             .Select(l => l.PadRight(length));
 
-        private static string JoinLines(this IEnumerable<string> lines, string separator) => string.Join(separator, lines);
+        private static string Join(this IEnumerable<string> strs, string separator) => string.Join(separator, strs);
+
+        private static IEnumerable<T> AsSingleton<T>(this T item) => Enumerable.Repeat(item, 1);
     }
 }

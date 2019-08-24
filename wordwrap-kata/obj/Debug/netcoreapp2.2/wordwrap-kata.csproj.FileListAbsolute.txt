@@ -1,0 +1,14 @@
+D:\DEV\wordwrap-kata\wordwrap-kata\obj\Debug\netcoreapp2.2\wordwrap-kata.csproj.CoreCompileInputs.cache
+D:\DEV\wordwrap-kata\wordwrap-kata\obj\Debug\netcoreapp2.2\wordwrap-kata.AssemblyInfoInputs.cache
+D:\DEV\wordwrap-kata\wordwrap-kata\obj\Debug\netcoreapp2.2\wordwrap-kata.AssemblyInfo.cs
+D:\DEV\wordwrap-kata\wordwrap-kata\bin\Debug\netcoreapp2.2\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+D:\DEV\wordwrap-kata\wordwrap-kata\bin\Debug\netcoreapp2.2\xunit.runner.reporters.netcoreapp10.dll
+D:\DEV\wordwrap-kata\wordwrap-kata\bin\Debug\netcoreapp2.2\xunit.runner.utility.netcoreapp10.dll
+D:\DEV\wordwrap-kata\wordwrap-kata\bin\Debug\netcoreapp2.2\wordwrap-kata.deps.json
+D:\DEV\wordwrap-kata\wordwrap-kata\bin\Debug\netcoreapp2.2\wordwrap-kata.runtimeconfig.json
+D:\DEV\wordwrap-kata\wordwrap-kata\bin\Debug\netcoreapp2.2\wordwrap-kata.runtimeconfig.dev.json
+D:\DEV\wordwrap-kata\wordwrap-kata\bin\Debug\netcoreapp2.2\wordwrap-kata.dll
+D:\DEV\wordwrap-kata\wordwrap-kata\obj\Debug\netcoreapp2.2\wordwrap-kata.csprojAssemblyReference.cache
+D:\DEV\wordwrap-kata\wordwrap-kata\bin\Debug\netcoreapp2.2\wordwrap-kata.pdb
+D:\DEV\wordwrap-kata\wordwrap-kata\obj\Debug\netcoreapp2.2\wordwrap-kata.dll
+D:\DEV\wordwrap-kata\wordwrap-kata\obj\Debug\netcoreapp2.2\wordwrap-kata.pdb
